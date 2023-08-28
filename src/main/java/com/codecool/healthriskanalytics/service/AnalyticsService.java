@@ -12,14 +12,14 @@ public class AnalyticsService {
     private static final int OVERWEIGHT_YEARS_LIMIT = 3;
 
     public int calculateAge(Person person) {
-        // Parse the birth date string to a LocalDate object
+        // Conversion from String to Date:
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate birthDate = LocalDate.parse(person.birthDate() , formatter);
+        LocalDate birthDate = LocalDate.parse(person.birthDate(), formatter);
 
-        // Get the current date
+        // Current Date:
         LocalDate today = LocalDate.now();
 
-        // Calculate the age
+        // Person's age:
         long age = ChronoUnit.YEARS.between(birthDate, today);
 
         return (int) age;
