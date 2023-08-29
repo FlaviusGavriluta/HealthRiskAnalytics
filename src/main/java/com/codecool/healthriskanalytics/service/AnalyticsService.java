@@ -13,7 +13,7 @@ public class AnalyticsService {
 
     public int calculateAge(Person person) {
         // Conversion from String to Date:
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate birthDate = LocalDate.parse(person.birthDate(), formatter);
 
         // Current Date:

@@ -19,7 +19,6 @@ class AnalyticsServiceTest {
 
     @Test
     void calculateAgeWhenCurrentTimeIsAfterBirthday() {
-
         // Arrange
         int birthYear = 1992;
         String birthDate = getBirthDateBeforeToday(birthYear);
