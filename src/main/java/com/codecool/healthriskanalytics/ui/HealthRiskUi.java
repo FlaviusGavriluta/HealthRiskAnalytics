@@ -1,5 +1,6 @@
 package com.codecool.healthriskanalytics.ui;
 
+import com.codecool.healthriskanalytics.model.AgeGroup;
 import com.codecool.healthriskanalytics.model.Gender;
 import com.codecool.healthriskanalytics.model.Person;
 import com.codecool.healthriskanalytics.model.WeightCondition;
@@ -33,11 +34,19 @@ public class HealthRiskUi {
         double calculateORR = analyticsService.calculateOrr(persons);
         double calculateORRForMale = analyticsService.calculateOrr(persons, Gender.MALE);
         double calculateORRForFemale = analyticsService.calculateOrr(persons, Gender.FEMALE);
+        double calculateORRForYoung = analyticsService.calculateOrr(persons, AgeGroup.YOUNG_ADULT);
+        double calculateORRForAdult = analyticsService.calculateOrr(persons, AgeGroup.ADULT);
+        double calculateORRForMiddle = analyticsService.calculateOrr(persons, AgeGroup.MIDDLE_AGE);
+        double calculateORRForOld = analyticsService.calculateOrr(persons, AgeGroup.OLD);
 
         System.out.println("-----------------------------------------------------------------");
         System.out.println("General Statistics");
         System.out.println("TOTAL overweight risk ratio: " + calculateORR);
         System.out.println("ORR for male: " + calculateORRForMale);
         System.out.println("ORR for female: " + calculateORRForFemale);
+        System.out.println("ORR for young: " + calculateORRForYoung);
+        System.out.println("ORR for adult: " + calculateORRForAdult);
+        System.out.println("ORR for middle age: " + calculateORRForMiddle);
+        System.out.println("ORR for old: " + calculateORRForOld);
     }
 }

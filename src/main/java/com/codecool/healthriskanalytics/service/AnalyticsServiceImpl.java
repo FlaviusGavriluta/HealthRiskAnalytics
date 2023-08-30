@@ -1,5 +1,6 @@
 package com.codecool.healthriskanalytics.service;
 
+import com.codecool.healthriskanalytics.model.AgeGroup;
 import com.codecool.healthriskanalytics.model.Gender;
 import com.codecool.healthriskanalytics.model.Person;
 import com.codecool.healthriskanalytics.model.WeightCondition;
@@ -75,5 +76,30 @@ public class AnalyticsServiceImpl implements AnalyticsService {
             return 0;
 
         return calculateOrr(personsByGender.toArray(new Person[0]));
+    }
+
+    @Override
+    public double calculateOrr(Person[] persons, AgeGroup ageGroup) {
+        List<Person> personsInAgeGroup = Arrays.stream(persons)
+                .filter(person -> {
+                    int age = calculateAge(person);
+                    switch (ageGroup) {
+                        case YOUNG_ADULT:
+                            return age >= 18 && age <= 25;
+                        case ADULT:
+                            return age >= 26 && age <= 44;
+                        case MIDDLE_AGE:
+                            return age >= 45 && age <= 59;
+                        case OLD:
+                            return age >= 60;
+                        default:
+                            return false;
+                    }
+                }).collect(Collectors.toList());
+
+        if (personsInAgeGroup.isEmpty())
+            return 0;
+
+        return calculateOrr(personsInAgeGroup.toArray(new Person[0]));
     }
 }
