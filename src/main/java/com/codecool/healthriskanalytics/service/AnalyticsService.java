@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AnalyticsService {
@@ -18,23 +20,19 @@ public class AnalyticsService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate birthDate = LocalDate.parse(person.birthDate(), formatter);
 
-        // Current Date:
         LocalDate today = LocalDate.now();
-
-        // Person's age:
         long age = ChronoUnit.YEARS.between(birthDate, today);
 
         return (int) age;
     }
 
     public double[] calculateBmiSeries(Person person) {
-        double[] BMISeries = new double[person.weights().length];
+        List<Double> BMISeries = Arrays.stream(person.weights())
+                .mapToDouble(weight -> calculateBmi(person.height(), weight))
+                .boxed()
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < person.weights().length; i++) {
-            BMISeries[i] = calculateBmi(person.height(), person.weights()[i]);
-        }
-
-        return BMISeries;
+        return BMISeries.stream().mapToDouble(Double::doubleValue).toArray();
     }
 
     private static double calculateBmi(double height, int weight) {
