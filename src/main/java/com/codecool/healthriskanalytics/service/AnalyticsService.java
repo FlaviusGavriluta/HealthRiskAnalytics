@@ -55,16 +55,8 @@ public class AnalyticsService {
     }
 
     public double calculateOrr(Person[] persons) {
-        int totalPersons = persons.length;
-        int personsWithOverweightRisk = 0;
+        Stream personsWithOverweightRisk = Arrays.stream(persons).filter(person -> determineWeightCondition(person).equals(WeightCondition.Overweight));
 
-        for (Person person : persons) {
-            if (determineWeightCondition(person) == WeightCondition.Overweight) {
-                personsWithOverweightRisk++;
-            }
-        }
-
-        double orr = (double) personsWithOverweightRisk / totalPersons;
-        return orr;
+        return (double) personsWithOverweightRisk.count() / persons.length;
     }
 }
