@@ -6,6 +6,8 @@ import com.codecool.healthriskanalytics.model.WeightCondition;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class AnalyticsService {
     private static final double OVERWEIGHT_BMI_LIMIT = 25.0;
@@ -53,6 +55,16 @@ public class AnalyticsService {
     }
 
     public double calculateOrr(Person[] persons) {
-        return 0;
+        int totalPersons = persons.length;
+        int personsWithOverweightRisk = 0;
+
+        for (Person person : persons) {
+            if (determineWeightCondition(person) == WeightCondition.Overweight) {
+                personsWithOverweightRisk++;
+            }
+        }
+
+        double orr = (double) personsWithOverweightRisk / totalPersons;
+        return orr;
     }
 }
