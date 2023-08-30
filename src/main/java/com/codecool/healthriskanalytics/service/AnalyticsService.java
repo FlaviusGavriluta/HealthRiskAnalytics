@@ -26,8 +26,18 @@ public class AnalyticsService {
     }
 
     public double[] calculateBmiSeries(Person person) {
-        return new double[0];
+        int[] weights = person.weights();
+        double[] bmiSeries = new double[weights.length];
+
+        for (int i = 0; i < weights.length; i++) {
+            int weight = weights[i];
+            double bmi = weight / Math.pow(person.height(), 2);
+            bmiSeries[i] = bmi;
+        }
+
+        return bmiSeries;
     }
+
 
     private static double calculateBmi(double height, int weight) {
         return 0;
