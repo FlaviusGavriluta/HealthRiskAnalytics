@@ -62,4 +62,9 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
         return (double) personsWithOverweightRisk.count() / persons.length;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
