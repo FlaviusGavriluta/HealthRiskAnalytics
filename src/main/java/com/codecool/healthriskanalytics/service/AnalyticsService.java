@@ -26,21 +26,17 @@ public class AnalyticsService {
     }
 
     public double[] calculateBmiSeries(Person person) {
-        int[] weights = person.weights();
-        double[] bmiSeries = new double[weights.length];
+        double[] BMISeries = new double[person.weights().length];
 
-        for (int i = 0; i < weights.length; i++) {
-            int weight = weights[i];
-            double bmi = weight / Math.pow(person.height(), 2);
-            bmiSeries[i] = bmi;
+        for (int i = 0; i < person.weights().length; i++) {
+            BMISeries[i] = calculateBmi(person.height(), person.weights()[i]);
         }
 
-        return bmiSeries;
+        return BMISeries;
     }
 
-
     private static double calculateBmi(double height, int weight) {
-        return 0;
+        return weight / Math.pow(height, 2);
     }
 
     public WeightCondition determineWeightCondition(Person person) {
