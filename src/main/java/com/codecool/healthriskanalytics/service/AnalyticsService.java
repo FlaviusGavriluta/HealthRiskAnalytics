@@ -45,11 +45,12 @@ public class AnalyticsService {
         if (BMISeries.length < 3)
             return WeightCondition.Unknown;
 
-        for (int i = 0; i < 3; i++)
-            if (BMISeries[i] <= 25)
-                return WeightCondition.Healthy;
+        boolean isHealthy = Arrays.stream(BMISeries)
+                .limit(3)
+                .anyMatch(bmi -> bmi <= 25);
 
-        return WeightCondition.Overweight;
+        return isHealthy ? WeightCondition.Healthy
+                : WeightCondition.Overweight;
     }
 
     public double calculateOrr(Person[] persons) {
