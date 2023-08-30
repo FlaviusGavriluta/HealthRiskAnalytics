@@ -40,7 +40,14 @@ public class AnalyticsService {
     }
 
     public WeightCondition determineWeightCondition(Person person) {
-        return WeightCondition.Healthy;
+        double[] BMISeries = calculateBmiSeries(person);
+
+        if (BMISeries.length < 3)
+            return WeightCondition.Unknown;
+
+        if (BMISeries[0] > 25 && BMISeries[1] > 25 && BMISeries[2] > 25)
+            return WeightCondition.Overweight;
+        else return WeightCondition.Healthy;
     }
 
     public double calculateOrr(Person[] persons) {
