@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AnalyticsServiceTest {
     private static final int CURRENT_YEAR = LocalDate.now().getYear();
 
-    private final AnalyticsService analyticsService = new AnalyticsService();
+    private final AnalyticsServiceImpl analyticsService = new AnalyticsServiceImpl();
 
     @Test
     void calculateAgeWhenCurrentTimeIsAfterBirthday() {
