@@ -1,5 +1,6 @@
 package com.codecool.healthriskanalytics;
 
+import com.codecool.healthriskanalytics.model.Gender;
 import com.codecool.healthriskanalytics.model.Person;
 import com.codecool.healthriskanalytics.service.AnalyticsService;
 import com.codecool.healthriskanalytics.service.AnalyticsServiceImpl;

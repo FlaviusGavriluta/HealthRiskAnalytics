@@ -1,5 +1,6 @@
 package com.codecool.healthriskanalytics.ui;
 
+import com.codecool.healthriskanalytics.model.Gender;
 import com.codecool.healthriskanalytics.model.Person;
 import com.codecool.healthriskanalytics.model.WeightCondition;
 import com.codecool.healthriskanalytics.service.AnalyticsService;
@@ -30,10 +31,13 @@ public class HealthRiskUi {
 
     public void displayStatistics(Person[] persons) {
         double calculateORR = analyticsService.calculateOrr(persons);
+        double calculateORRForMale = analyticsService.calculateOrr(persons, Gender.MALE);
+        double calculateORRForFemale = analyticsService.calculateOrr(persons, Gender.FEMALE);
 
         System.out.println("-----------------------------------------------------------------");
         System.out.println("General Statistics");
-        System.out.println("Overweight risk ratio: " + calculateORR);
-
+        System.out.println("TOTAL overweight risk ratio: " + calculateORR);
+        System.out.println("ORR for male: " + calculateORRForMale);
+        System.out.println("ORR for female: " + calculateORRForFemale);
     }
 }

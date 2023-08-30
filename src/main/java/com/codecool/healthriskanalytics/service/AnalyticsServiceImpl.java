@@ -1,7 +1,9 @@
 package com.codecool.healthriskanalytics.service;
 
+import com.codecool.healthriskanalytics.model.Gender;
 import com.codecool.healthriskanalytics.model.Person;
 import com.codecool.healthriskanalytics.model.WeightCondition;
+import org.w3c.dom.ls.LSOutput;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -58,13 +60,20 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     @Override
     public double calculateOrr(Person[] persons) {
-        Stream personsWithOverweightRisk = Arrays.stream(persons).filter(person -> determineWeightCondition(person).equals(WeightCondition.Overweight));
+        Stream personsWithOverweightRisk = Arrays.stream(persons)
+                .filter(person -> determineWeightCondition(person).equals(WeightCondition.Overweight));
 
         return (double) personsWithOverweightRisk.count() / persons.length;
     }
 
     @Override
-    public String toString() {
-        return super.toString();
+    public double calculateOrr(Person[] persons, Gender gender) {
+        List<Person> personsByGender = Arrays.stream(persons)
+                .filter(person -> person.gender().equals(gender)).collect(Collectors.toList());
+
+        if (personsByGender.isEmpty())
+            return 0;
+
+        return calculateOrr(personsByGender.toArray(new Person[0]));
     }
 }
